@@ -4,11 +4,15 @@ export const metadata = {
 };
 
 import Hero from "../../components/hero";
+import Testimonials from "@/components/testimonials";
+import Modal from "@/components/modal";
 
 const Page = () => {
   return (
     <>
       <Hero />
+      <Modal />
+      <Testimonials />
     </>
   );
 };

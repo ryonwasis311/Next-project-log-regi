@@ -54,6 +54,13 @@ const Hero = () => {
               >
                 One of the best parts of life is friendship.
               </p>
+              <p
+                className="text-xl text-gray-600 mb-8"
+                data-aos="zoom-y-out"
+                data-aos-delay="150"
+              >
+                @STEEL MAN@
+              </p>
               <p className="text-xl text-gray-600 mb-8"
                 data-aos="zoom-y-out"
                 data-aos-delay="150"> Thanks for being my best friend</p>
