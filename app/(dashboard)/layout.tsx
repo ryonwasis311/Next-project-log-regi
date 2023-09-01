@@ -1,4 +1,4 @@
-import Header from "@/components/ui/header";
+import Header1 from "@/components/ui/header1";
 
 const AuthLayout = ({
     children,
@@ -7,7 +7,7 @@ const AuthLayout = ({
   }) => {  
     return (
       <main className="grow">
-        <Header />
+        <Header1 />
         {children}
   
       </main>
@@ -15,4 +15,3 @@ const AuthLayout = ({
   }
 
   export default AuthLayout;
-  

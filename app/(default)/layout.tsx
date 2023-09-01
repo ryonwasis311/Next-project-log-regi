@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
 import { useEffect } from "react";
 
-import AOS from 'aos'
+import AOS from "aos";
 import "aos/dist/aos.css";
-
+import Header from "@/components/ui/header";
 import Footer from "../../components/ui/footer";
 
-const DefaultLayout = ({ children,  }: { children: React.ReactNode }) => {
+const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     AOS.init({
       once: true,
@@ -19,12 +19,13 @@ const DefaultLayout = ({ children,  }: { children: React.ReactNode }) => {
 
   return (
     <>
-    <main className="grow">
+      <main className="grow">
+        <Header />
         {children}
         <Footer />
-    </main>
+      </main>
     </>
-  )
+  );
 };
 
 export default DefaultLayout;
