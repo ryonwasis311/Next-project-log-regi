@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Logo from "./logo";
 import Link from "next/link";
+import MobileMenu from "./mobile-menu";
 
 const Header = () => {
   const [top, setTop] = useState<boolean>(true);
@@ -64,6 +65,7 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
+            <MobileMenu />
           </div>
         </div>
       </header>

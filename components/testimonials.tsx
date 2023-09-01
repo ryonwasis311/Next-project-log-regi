@@ -31,7 +31,7 @@ const Testimonials = () => {
               <p className="text-xl text-gray-600" data-aos="zoom-y-out">Reality is harsh</p>
             </div>
   
-            {/* Testimonials */}
+             {/* Testimonials */}
             <div className="max-w-3xl mx-auto mt-20" data-aos="zoom-y-out">
               <div className="relative flex items-start border-2 border-gray-200 rounded bg-white">
   

@@ -1,5 +1,16 @@
-const Layout = () =>{
-    return<h1>RootLayout</h1>
-}
+const AuthLayout = ({
+    children,
+  }: {
+    children: React.ReactNode
+  }) => {  
+    return (
+      <main className="grow">
+  
+        {children}
+  
+      </main>
+    )
+  }
 
-export default Layout;
+  export default AuthLayout;
+  
