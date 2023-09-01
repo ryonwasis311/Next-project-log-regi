@@ -1,5 +1,16 @@
-const Page = () =>{
-    return<h1>RootLayout</h1>
-}
+export const metadata = {
+  title: "Home",
+  description: "Page description",
+};
+
+import Hero from "../../components/hero";
+
+const Page = () => {
+  return (
+    <>
+      <Hero />
+    </>
+  );
+};
 
 export default Page;

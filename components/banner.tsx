@@ -1,5 +1,5 @@
 const Banner = () =>{
-    return<h1>RootLayout</h1>
+    return<h1>Banner</h1>
 }
 
 export default Banner;
