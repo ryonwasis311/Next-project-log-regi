@@ -1,3 +1,5 @@
+'use client'
+
 import Header1 from "@/components/ui/header1";
 
 const AuthLayout = ({

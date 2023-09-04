@@ -2,7 +2,6 @@
 import { useState, useRef, Fragment } from "react";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
-import { Dialog, Transition } from "@headlessui/react";
 import TestimonialImage from "../public/images/avatar8.png"
 
 interface MoalVideoProps {
@@ -12,7 +11,7 @@ interface MoalVideoProps {
     thumbAlt:string
 }
 
-const Modal = ( {thumb, thumbWidth, thumHeight, thumbAlt}: MoalVideoProps ) => {
+const Modal = ( { thumbWidth, thumHeight, thumbAlt}: MoalVideoProps ) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   return (
