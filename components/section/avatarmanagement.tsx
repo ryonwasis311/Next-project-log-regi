@@ -6,7 +6,7 @@ import Hero from "../../public/avatars/1.svg";
 import { IconButton } from "@material-tailwind/react";
 const AvatarMangement = () => {
   return (
-    <>
+    <section className="relative">
       {/* Avatar-Detail */}
       <div className="title flex justify-between mt-16 ml-10 mr-10 mb-4">
         <div className="flex gap-2">
@@ -197,7 +197,7 @@ const AvatarMangement = () => {
           <p className="text-sm text-gray-500">1 HOURS AGO</p>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 
