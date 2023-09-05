@@ -61,7 +61,7 @@ const Header1 = () => {
                   <input
                     type="text"
                     id="simple-search"
-                    className="bg-gray-50 border border-gray-200 text-black-50 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-8 p-1.5  dark:bg-gray-150 dark:border-gray-120 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border outline-none border-gray-200 text-black-50 text-sm rounded-lg block w-full pl-8 p-1.5  dark:bg-gray-150 dark:border-gray-120 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="            Search..."
                     required
                   />

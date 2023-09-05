@@ -19,22 +19,4 @@
 }
 
 
-/* width */
-::-webkit-scrollbar {
-    width: 2px;
-}
-  
-/* Track */
-::-webkit-scrollbar-track {
-    background: #3e3a3a;
-}
-  
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #2f2929;
-}
-  
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-}
 

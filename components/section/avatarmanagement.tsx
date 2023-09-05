@@ -20,7 +20,7 @@ const [moreEvent, setMoreEvent] = useState(false);
           <button
             id="dropdownMenuIconHorizontalButton"
             data-dropdown-toggle="dropdownDotsHorizontal"
-            className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-100 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-black  dark:bg-gray-100 dark:hover:bg-gray-700 "
+            className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-700 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-black  dark:bg-gray-100 dark:hover:bg-gray-700 "
             type="button"
           >
             <svg

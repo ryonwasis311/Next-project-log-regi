@@ -52,7 +52,7 @@ const AvatarList = () => {
         <div>
           <Image
             src={Avatar4}
-            className="rounded-full relative mr-10"
+            className="rounded-full c mr-10"
             width="86"
             height="86"
             alt="asd"
