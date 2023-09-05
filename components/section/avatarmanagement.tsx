@@ -4,7 +4,10 @@ import Avatar from "../../public/avatars/Avatar-Circle.svg";
 import Hero from "../../public/avatars/1.svg";
 
 import { IconButton } from "@material-tailwind/react";
+import { useState } from "react";
 const AvatarMangement = () => {
+const [moreEvent, setMoreEvent] = useState(false);
+
   return (
     <section className="relative">
       {/* Avatar-Detail */}
@@ -184,9 +187,15 @@ const AvatarMangement = () => {
           <h4 className="text-xl text-gray-1000">1060 likes</h4>
         </div>
         {/* commets */}
-        <div className="comments">
-          Imperdiet in sit rhoncus, eleifend tellus augue lectus potenti
-          pellentesque
+        <div className="flex justify-between">
+          <p className="text-xl">SteelMan:</p>
+          <p className={(moreEvent === true ? "" : "truncate")}>
+            Imperdiet in sit rhoncus, eleifend tellus augue lectus potenti
+            pellentesqueaaaaaaaaaaaaaaaaaaaaewrsdfsdfgsdfgsfdg
+            
+          </p>{" "}
+          <button onClick={() => setMoreEvent(!moreEvent)}>{moreEvent ? "less" : "more"}</button>
+
         </div>
         {/* view_comments */}
         <div className="viewcomment">
@@ -202,3 +211,6 @@ const AvatarMangement = () => {
 };
 
 export default AvatarMangement;
+
+
+// https://github.com/tailwindlabs/tailwindcss/discussions/1507?sort=top#discussioncomment-2300
