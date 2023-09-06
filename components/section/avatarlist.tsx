@@ -16,13 +16,13 @@ const AvatarList = () => {
     infinite: true,
     autoplay: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
   };
   return (
     <div>
       <Slider {...setting}>
-        <div>
+        <div >
           <Image
             src={Avatar1}
             className="rounded-full relative mr-10"

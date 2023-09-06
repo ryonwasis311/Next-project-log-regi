@@ -148,7 +148,7 @@ const TabContent = () => {
           role="tabpanel"
           aria-labelledby="profile-tab"
         >
-          <div className="flex flex-wrap w-full gap-[28px]">
+          <div className="flex flex-wrap justify-center gap-4 w-full sm:justify-around md:gap-[28px]">
             <Image src={Avatar} width="293" height="293" alt="avatar" />
             <Image src={Avatar1} width="293" height="293" alt="avatar1" />
             <Image src={Avatar2} width="293" height="293" alt="avatar2" />
