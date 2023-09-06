@@ -1,10 +1,16 @@
 "use client";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import ImageUploading from "react-images-uploading";
+import Image from "next/image";
+
+import IUser from "../types/page";
+import AuthService from "@/services/auth.service";
 
 interface avatarprops {
-  imageList: file;
-  addUpdateIndex: string;
+  imageList: File[];
+  addUpdateIndex: number;
 }
 
 export const metadata = {
@@ -13,139 +19,232 @@ export const metadata = {
 };
 
 import Link from "next/link";
+import { setMessage } from "@/slices/message";
 
-const SignUp = () => {
-  const [images, setImages] = useState([]);
+const SignUp: React.FC = () => {
+  const [successful, setSuccessful] = useState<boolean>(false);
+
+  const [images, setImages] = useState<[]>([]);
   const maxNumber = 69;
-  const onChange_img = (imageList, addUpdateIndex) => {
+  const onChange_img = ({ imageList, addUpdateIndex }: avatarprops) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
+  };
+
+  const initialValues: IUser = {
+    username: "",
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .test(
+        "len",
+        "The username must be between 3 and 20 characters.",
+        (val: any) =>
+          val && val.toString().length >= 3 && val.toString().length <= 20
+      )
+      .required("This field is required!"),
+    email: Yup.string()
+      .email("This is not a valid email.")
+      .required("This field is required!"),
+    password: Yup.string()
+      .test(
+        "len",
+        "The password must be between 6 and 40 characters.",
+        (val: any) =>
+          val && val.toString().length >= 6 && val.toString().length <= 40
+      )
+      .required("This field is required!"),
+  });
+
+  const handleRegister = (formValue: IUser) => {
+    const { username, email, password } = formValue;
+    console.log(username);
+    AuthService.register(username, email, password).then(
+      (response) => {
+        setMessage(response.data.message);
+        setSuccessful(true);
+      },
+      (error: any) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setMessage(resMessage);
+        setSuccessful(false);
+      }
+    );
   };
   return (
     <section className="bg-gradient-to-b from-gray-100 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           {/* Page header */}
-       
 
           {/* Form */}
           <div className="max-w-sm mx-auto">
-          <ImageUploading
-            multiple
-            value={images}
-            onChange={onChange_img}
-            maxNumber={maxNumber}
-            dataURLKey="data_url"
-          >
-            {({
-              imageList,
-              onImageUpload,
-              onImageRemoveAll,
-              onImageUpdate,
-              onImageRemove,
-              isDragging,
-              dragProps,
-            }) => (
-              // write your building UI
-              <div className="upload__image-wrapper">
-                <button
-                  style={isDragging ? { color: "red" } : undefined}
-                  onClick={onImageUpload}
-                  {...dragProps}
-                  className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-full relative flex items-center"
-                >
-                  Update your avatar
-                </button>
-                &nbsp;
-                {imageList.map((image, index) => (
-                  <div key={index} className="image-item">
-                    <img src={image["data_url"]} alt="" width="250" className=" m-auto" />
-                    <div className="flex justify-between mt-10 mb-10">
-                      <button onClick={() => onImageUpdate(index)} className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center">
-                        Update
-                      </button>
-                      <button onClick={() => onImageRemove(index)} className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center">
-                        Remove
-                      </button>
+            <ImageUploading
+              multiple
+              value={images}
+              onChange={onChange_img}
+              maxNumber={maxNumber}
+              dataURLKey="data_url"
+            >
+              {({
+                imageList,
+                onImageUpload,
+                onImageRemoveAll,
+                onImageUpdate,
+                onImageRemove,
+                isDragging,
+                dragProps,
+              }) => (
+                // write your building UI
+                <div className="upload__image-wrapper">
+                  <button
+                    style={isDragging ? { color: "red" } : undefined}
+                    onClick={onImageUpload}
+                    {...dragProps}
+                    className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-full relative flex items-center"
+                  >
+                    Update your avatar
+                  </button>
+                  &nbsp;
+                  {imageList.map((image, index) => (
+                    <div key={index} className="image-item">
+                      <Image
+                        src={image["data_url"]}
+                        alt=""
+                        width="250"
+                        className=" m-auto"
+                      />
+                      <div className="flex justify-between mt-10 mb-10">
+                        <button
+                          onClick={() => onImageUpdate(index)}
+                          className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center"
+                        >
+                          Update
+                        </button>
+                        <button
+                          onClick={() => onImageRemove(index)}
+                          className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </ImageUploading>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleRegister}
+            >
+              <Form>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3 form-group">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="username"
+                    >
+                      Name <span className="text-red-600">*</span>
+                    </label>
+                    <Field
+                      id="username"
+                      type="text"
+                      name="username"
+                      className="form-control w-full text-gray-800"
+                      placeholder="Enter your name"
+                      required
+                    />
+                    <ErrorMessage
+                      name="username"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3 form-group">
+                    <label
+                      className=" block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="email"
+                    >
+                      Email <span className="text-red-600">*</span>
+                    </label>
+                    <Field
+                      id="email"
+                      type="email"
+                      name="email"
+                      className="form-control w-full text-gray-800"
+                      placeholder="Enter your email address"
+                      required
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                    <div className="form-group">
+                      <label htmlFor="password"> Password </label>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
-          </ImageUploading>
-            <form>
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-full px-3">
-                  <label
-                    className="block text-gray-800 text-sm font-medium mb-1"
-                    htmlFor="name"
-                  >
-                    Name <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    className="form-input w-full text-gray-800"
-                    placeholder="Enter your name"
-                    required
-                  />
                 </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-full px-3">
-                  <label
-                    className="block text-gray-800 text-sm font-medium mb-1"
-                    htmlFor="email"
-                  >
-                    Email <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className="form-input w-full text-gray-800"
-                    placeholder="Enter your email address"
-                    required
-                  />
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3 form-group">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="password"
+                    >
+                      Password <span className="text-red-600">*</span>
+                    </label>
+                    <Field
+                      id="password"
+                      type="password"
+                      name="password"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Enter your password"
+                      required
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-full px-3">
-                  <label
-                    className="block text-gray-800 text-sm font-medium mb-1"
-                    htmlFor="password"
-                  >
-                    Password <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    id="password"
-                    type="password"
-                    className="form-input w-full text-gray-800"
-                    placeholder="Enter your password"
-                    required
-                  />
+                <div className="flex flex-wrap -mx-3 mt-6">
+                  <div className="w-full px-3">
+                    <button
+                      type="submit"
+                      className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
+                    >
+                      Sign up
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mt-6">
-                <div className="w-full px-3">
-                  <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">
-                    Sign up
-                  </button>
-                </div>
-              </div>
 
-              <div className="text-sm text-gray-500 text-center mt-3">
-                By creating an account, you agree to the{" "}
-                <a className="underline" href="#0">
-                  terms & conditions
-                </a>
-                , and our{" "}
-                <a className="underline" href="#0">
-                  privacy policy
-                </a>
-                .
-              </div>
-            </form>
+                <div className="text-sm text-gray-500 text-center mt-3">
+                  By creating an account, you agree to the{" "}
+                  <a className="underline" href="#0">
+                    terms & conditions
+                  </a>
+                  , and our{" "}
+                  <a className="underline" href="#0">
+                    privacy policy
+                  </a>
+                  .
+                </div>
+              </Form>
+            </Formik>
             <div className="flex items-center my-6">
               <div
                 className="border-t border-gray-300 grow mr-3"
