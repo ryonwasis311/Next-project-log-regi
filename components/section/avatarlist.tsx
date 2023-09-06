@@ -30,6 +30,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -39,6 +42,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -48,6 +54,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -57,6 +66,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -66,6 +78,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -75,6 +90,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -84,6 +102,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -93,6 +114,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -102,6 +126,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
         <div>
           <Image
@@ -111,6 +138,9 @@ const AvatarList = () => {
             height="86"
             alt="asd"
           />
+          <div className="fullname ml-[11px] mt-[15px]">
+            <p className="font-semibold">fullname</p>
+          </div>
         </div>
       </Slider>
     </div>

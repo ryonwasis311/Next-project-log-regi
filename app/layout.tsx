@@ -26,8 +26,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip: ">
 
             {children}
-            <Banner />
-        </div>
+            <Banner />        </div>
 
 
       </body>

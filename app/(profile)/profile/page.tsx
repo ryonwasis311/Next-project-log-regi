@@ -11,7 +11,7 @@ const Profile = () => {
   return (
     <section className="relative mt-20 ">
       <Brief />
-      <div className="max-w-[800px] mx-auto px-[48] sm:px-6 mt-11 mb-11">
+      <div className="max-w-[835px] mx-auto px-[44px] sm:px-6 mt-[44px] mb-[91px]">
         <AvatarList />
       </div>
       <TabContent />
