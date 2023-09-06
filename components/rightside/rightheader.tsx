@@ -3,7 +3,7 @@ import Image from "next/image";
 import Avatar from "../../public/avatars/avatar1.png";
 const RightHeader = () => {
   return (
-    <>
+    <div className="px-6">
       <div className="flex mt-16">
         <Image
           src={Avatar}
@@ -17,14 +17,14 @@ const RightHeader = () => {
             <p className="text-gray-800 text-xl">ryonwasis</p>
             <p className="text-gray-400 text-2xl">RyonWasis</p>
           </div>
-          <div className="mr-1">
-            <button className=" justify-center text-blue-600 dark:text-blue-500 dark:hover:bg-gray-600">
+          <div className="">
+            <button className=" text-blue-600 dark:text-blue-500 dark:hover:bg-gray-600">
               Switch
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

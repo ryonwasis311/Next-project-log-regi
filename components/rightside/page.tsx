@@ -3,8 +3,9 @@ import RightHeader from "./rightheader";
 
 const RightSide = () => {
     return (
-        <div className="ml-10">
+        <div className=" m-auto sm:ml-5 md:ml-10">
         <RightHeader />
+        
         <PerSonalCard />
         </div>
     )

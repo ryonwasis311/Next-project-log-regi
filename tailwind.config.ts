@@ -19,7 +19,9 @@ const withMT = require("@material-tailwind/react/utils/withMT");
     },
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require("tailwindcss-animate"),
+
   ],
 });
 

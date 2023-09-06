@@ -21,7 +21,7 @@ const AvatarList = () => {
   };
   return (
     <div>
-      <Slider {...setting}>
+      <Slider  {...setting}>
         <div >
           <Image
             src={Avatar1}

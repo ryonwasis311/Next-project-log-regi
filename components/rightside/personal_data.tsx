@@ -2,9 +2,9 @@ import Image from "next/image";
 import Avatar from "../../public/avatars/avatar4.png";
 const PersonalCard = () => {
   return (
-    <>
+    <div className="px-6">
       {/* title */}
-      <div className="title flex justify-between">
+      <div className="ml-3 title flex justify-between">
         <p className="text-xl text-gray-600 mt-5">Suggetions For You</p>
         <button className="text-black">See All</button>
       </div>
@@ -59,7 +59,7 @@ const PersonalCard = () => {
       <div className="details">
         <p className="text-md text-gray-400 mt-6">when you throw up dependence on others, you will find your right way!</p>
       </div>
-    </>
+    </div>
   );
 };
 

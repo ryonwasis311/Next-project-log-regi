@@ -5,18 +5,18 @@ import Hero from "../../public/avatars/1.svg";
 
 import { IconButton } from "@material-tailwind/react";
 import { useState } from "react";
-const AvatarMangement = () => {
+const AvatarMangement = ({}) => {
 const [moreEvent, setMoreEvent] = useState(false);
 
   return (
     <section className="relative">
       {/* Avatar-Detail */}
-      <div className="title flex justify-between mt-16 ml-10 mr-10 mb-4">
-        <div className="flex gap-2">
+      <div className="title flex justify-between mt-16 mb-4">
+        <div className="flex gap-2 ml-3">
           <Image src={Avatar} width={55} height={55} alt="Avatar" />
           <h4 className="h4 mt-2 ml-3">I'm Steel Man</h4>
         </div>
-        <div className="buttons">
+        <div className="buttons mr-4">
           <button
             id="dropdownMenuIconHorizontalButton"
             data-dropdown-toggle="dropdownDotsHorizontal"
@@ -78,7 +78,7 @@ const [moreEvent, setMoreEvent] = useState(false);
         </div>
       </div>
       {/* Avatar */}
-      <Image className=" w-full" src={Hero} alt="Avatar" />
+      <Image className="w-full" src={Hero} alt="Avatar" />
       {/* Tools */}
       <div className="flex justify-between">
         <div className="icons ml-4 mt-4">
@@ -180,22 +180,23 @@ const [moreEvent, setMoreEvent] = useState(false);
           </IconButton>
         </div>
       </div>
-      {/* comment-group */}
-      <div className="comment_group ml-4">
+            {/* comment-group */}
+      <div className="comment_group px-4">
         {/* following_number */}
-        <div className="followingnumber">
-          <h4 className="text-xl text-gray-1000">1060 likes</h4>
+        <div className="followingnumber mt-4 ">
+          <h4 className="text-xl text-gray-1000 ">1060 likes</h4>
         </div>
         {/* commets */}
-        <div className="flex justify-between">
-          <p className="text-xl">SteelMan:</p>
-          <p className={(moreEvent === true ? "" : "truncate")}>
-            Imperdiet in sit rhoncus, eleifend tellus augue lectus potenti
-            pellentesqueaaaaaaaaaaaaaaaaaaaaewrsdfsdfgsdfgsfdg
-            
-          </p>{" "}
-          <button onClick={() => setMoreEvent(!moreEvent)}>{moreEvent ? "less" : "more"}</button>
-
+        <div className="flex justify-between items-center w-full">
+          <div className="flex items-center max-w-[85%]">
+            <p className="text-md-end font-bold">SteelMan:</p>
+            <p className={(moreEvent === true ? "text-left" : "truncate text-left max-w-[60vw] pl-2")}>
+              Imperdiet in sitsdfsdfsdfsdfsfsdfdsdfsdfsdfsdfsdfsd    
+            </p>
+          </div>
+          <div>
+            <button onClick={() => setMoreEvent(!moreEvent)}>{moreEvent ? "less" : "more"}</button>
+          </div>
         </div>
         {/* view_comments */}
         <div className="viewcomment">

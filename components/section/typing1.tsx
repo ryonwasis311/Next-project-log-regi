@@ -4,10 +4,10 @@ import Smile from "../../public/icons/Smiley.svg";
 import Gif from "../../public/icons/Gif.svg";
 import Chart from "../../public/icons/Stats.svg";
 import Message from "../../public/icons/Image.svg";
-import Line from "../../public/icons/Line 1.png";
 import Ellipse from "../../public/icons/Ellipse 1.svg";
 import MainCta from "../../public/icons/Main CTA.svg";
 import Plus from "../../public/icons/+.svg";
+import Line from "../../public/Icons/Line1.png";
 Customize;
 import Customize from "../../public/icons/Customize.svg";
 
@@ -18,19 +18,14 @@ const Typing1 = () => {
         Your message
       </label>
       <div className="title flex justify-between mt-16 ml-10 mr-10">
-      <h1 className="h4">Home</h1>
+        <h1 className="h4">Home</h1>
         <div>
-        <Image
-          src={Customize}
-          width={35 }
-          height={35}
-          alt="Customize"
-        />
+          <Image src={Customize} width={35} height={35} alt="Customize" />
         </div>
       </div>
-      <div className="flex items-center px-3 py-2 bg-gray-180 dark:bg-gray-200 mt-3">
+      <div className=" sm:flex items-center px-3 py-2 bg-gray-180 dark:bg-gray-200 mt-3">
         <Image
-          className="relative rounded-full ml-7"
+          className="mb-4 mr-3 relative rounded-full md:ml-7"
           src={AvatarImage}
           width={96}
           height={96}
@@ -40,12 +35,12 @@ const Typing1 = () => {
         <textarea
           id="chat"
           rows="1"
-          className="block mx-4 p-2.5 w-full text-md-start text-gray-800 bg-white rounded-lg border border-gray-180 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-200 dark:placeholder-gray-2500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block md:mx-4 p-2.5 w-80 h-20 text-md-start text-gray-800 bg-white rounded-lg border border-gray-180 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-200 dark:placeholder-gray-2500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="What's happening."
         ></textarea>
       </div>
-      <div className="flex justify-between items-center px-3 py-2  bg-gray-180 dark:bg-gray-200">
-        <div className="image-group flex ml-20">
+      <div className="lg:flex justify-between items-center px-3 py-2  bg-gray-180 dark:bg-gray-200"> 
+        <div className="image-group ml-10 flex sm:ml-20">
           <Image
             className="relative"
             src={Message}
@@ -75,8 +70,9 @@ const Typing1 = () => {
             alt="Smile"
           />
         </div>
-        <div className="button-groups flex mr-0">
-          <button>
+        <div className="ml-10  sm:ml-20 flex mr-0 items-center">
+          <button
+          className="border-r-2 h-10 pr-2">
             <Image src={Ellipse} width={35} height={35} alt="Ellipse" />
           </button>
           <button>
