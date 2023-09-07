@@ -1,3 +1,8 @@
+import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { useDispatch } from "react-redux";
+import handleEmoji from "@/features/HandleEmoji";
+import {handleLike, likePost, postComment} from "../../slices/postdata"
+
 import Image from "next/image";
 import Link from "next/link";
 import Avatar from "../../public/avatars/Avatar-Circle.svg";
@@ -5,10 +10,28 @@ import Hero from "../../public/avatars/1.svg";
 
 import { IconButton } from "@material-tailwind/react";
 import { useState } from "react";
+
+
+import MoreHoriIcon from "@material-ui/icons/MoreHoriz";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/SentimentSatisfiedOutlined";
+
+
+import {
+  focusOnComment,
+  handleShowMore,
+  handleCommentLike
+} from "../../features/PostActionMethods";
+import { AnyAction } from "redux";
+
 const AvatarMangement = ({}) => {
 const [moreEvent, setMoreEvent] = useState(false);
 
   return (
+    const dispatch =useDispatch<AnyAction>();
+    const allPosts = useSelector((state) => state.postdata)
+
+
     <section className="relative">
       {/* Avatar-Detail */}
       <div className="title flex justify-between mt-16 mb-4">
