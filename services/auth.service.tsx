@@ -24,12 +24,7 @@ const register = (username: string, email: string, password: string) => {
         email,
         password,
   })
-  .then((response) => {
-    if (response.data) {
-      localStorage.setItem("user", JSON.stringify(response.data));
-    }
-    return response.data;
-  })
+  
 }
 
 const login = ( email:string, password:string ) => {
@@ -38,7 +33,12 @@ const login = ( email:string, password:string ) => {
       email,
       password,
     })
-   
+    .then((response) => {
+      if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
+      return response.data;
+    })
 };
 
 const logout = () => {

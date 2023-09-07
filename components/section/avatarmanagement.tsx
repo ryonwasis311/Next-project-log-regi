@@ -191,7 +191,7 @@ const [moreEvent, setMoreEvent] = useState(false);
           <div className="flex items-center max-w-[85%]">
             <p className="text-md-end font-bold">SteelMan:</p>
             <p className={(moreEvent === true ? "text-left" : "truncate text-left max-w-[60vw] pl-2")}>
-              Imperdiet in sitsdfsdfsdfsdfsfsdfdsdfsdfsdfsdfsdfsd    
+              Imperdiet in sitsdfsdfsdfsdfsfsdfdsdfsdfsdfsdfsdfsdfsdfsdfsfsdfdsdfsdfsdfsdfsdfsdfsdfsdfsfsdfsefsefsfesefsefsefsefsefdsdfsdfsdfsdfsdfsd    
             </p>
           </div>
           <div>

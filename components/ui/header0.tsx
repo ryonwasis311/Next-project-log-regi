@@ -33,7 +33,7 @@ const Header0 = () => {
           <div className="flex items-center  h-16 md:h-20 w-full justify-between">
             {/* Site Title */}
             <div className="shrink-0">
-              <Link href="/dashboard">
+              <Link href="/">
                 <Image
                   className="relative "
                   src={Title}

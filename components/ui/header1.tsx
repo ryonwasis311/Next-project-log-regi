@@ -33,7 +33,7 @@ const Header1 = () => {
           <div className="flex items-center  h-16 md:h-20 w-full justify-between">
             {/* Site Title */}
             <div className="shrink-0">
-              <Link href="/dashboard">
+              <Link href="/">
                 <Image
                   className="relative "
                   src={Title}
@@ -76,7 +76,8 @@ const Header1 = () => {
               {/* Desktop sign in links */}
               <ul className="flex grow justify-end flex-wrap gap-5 items-center">
                 <li>
-                  <button
+                  <Link href="/">
+                    <button
                     type="button"
                     className="  hover:text-white font-medium text-sm p-0 text-center inline-flex items-center"
                   >
@@ -101,6 +102,7 @@ const Header1 = () => {
                     </svg>
                     <span className="sr-only">Icon description</span>
                   </button>
+                  </Link>
                 </li>
                 <li>
                   <button
