@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/auth";
+const API_URL = "http://192.168.3.42:3001/";
 
 interface PersonData {
     username: string,
@@ -9,7 +9,7 @@ interface PersonData {
 }
 
 const register = ({username, email, password}:PersonData) =>{
- return axios.post(API_URL+ "signup", {
+ return axios.post(API_URL+ "/auth/signup", {
     username,
     email,
     password,

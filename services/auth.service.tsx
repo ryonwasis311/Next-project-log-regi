@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const API_URL = "http://192.168.3.42:3001/";
+const API_URL1 = "http://192.168.3.42:3001";
+
+
 
 interface PersonData {
   username: string,
@@ -8,26 +11,34 @@ interface PersonData {
   password: string,
 }
 
+const saveToken = () => {
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : "";
+  API_URL1.defaults.headers.common["x-access-token"] = token;
+};
+
 const register = (username: string, email: string, password: string) => {
   return axios.post(API_URL+ "auth/signup", {
         username,
         email,
         password,
-  });
-};
+  })
+  .then((response) => {
+    if (response.data) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
+  })
+}
 
-const login = ({ username, password }: PersonData) => {
+const login = ( email:string, password:string ) => {
   return axios
     .post(API_URL + "auth/signin", {
-      username,
+      email,
       password,
     })
-    .then((response) => {
-      if (response.data.username) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-      return response.data;
-    });
+   
 };
 
 const logout = () => {
@@ -49,6 +60,7 @@ const AuthService = {
   login,
   logout,
   getCurrentUser,
+  saveToken,
 };
 
 export default AuthService;

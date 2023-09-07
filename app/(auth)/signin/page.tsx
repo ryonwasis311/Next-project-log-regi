@@ -1,95 +1,169 @@
-'use client'
+"use client";
 
 export const metadata = {
   title: "Sign In",
   description: "Page description",
 };
-
+import React, { useState } from "react";
+import { NavigateFunction, useNavigate, Routes, Route } from "react-router-dom";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { sign } from "crypto";
+import * as Yup from "yup";
 import Link from "next/link";
 
-const SignIn = () => {
+import AuthService from "@/services/auth.service";
+
+type Props = {};
+
+const SignIn: React.FC<Props> = () => {
+  let navigate: NavigateFunction = useNavigate();
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+
+  const initialValues: {
+    email: string;
+    password: string;
+  } = {
+    email: "",
+    password: "",
+  };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("This field is required!"),
+    password: Yup.string().required("This field is required!"),
+  });
+
+  const handleLogin = (formValue: { email: string; password: string }) => {
+    const { email, password } = formValue;
+
+    setMessage("");
+    setLoading(true);
+
+    AuthService.login(email, password).then(
+      () => {
+        navigate("/dashboard");
+        window.location.reload();
+      },
+      (error: any) => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        setLoading(false);
+        setMessage(resMessage);
+      }
+    );
+  };
+
   return (
     <section className="bg-gradient-to-b from-gray-100 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           {/* Page header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h1 className="h1">
-              Welcome to come here!
-            </h1>
+            <h1 className="h1">Welcome to come here!</h1>
           </div>
 
           {/* Form */}
           <div className="max-w-sm mx-auto">
-            <form>
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-full px-3">
-                  <label
-                    className="block text-gray-800 text-sm font-medium mb-1"
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className="form-input w-full text-gray-800"
-                    placeholder="Enter your email address"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-full px-3">
-                  <div className="flex justify-between">
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleLogin}
+            >
+              <Form>
+                <div className="flex flex-wrap -mx-3 mb-4 form-gruop">
+                  <div className="w-full px-3">
                     <label
                       className="block text-gray-800 text-sm font-medium mb-1"
-                      htmlFor="password"
+                      htmlFor="email"
                     >
-                      Password
+                      Email
                     </label>
-                    <Link
-                      href="/reset-password"
-                      className="text-sm font-medium text-blue-600 hover:underline"
-                    >
-                      Having trouble signing in?
-                    </Link>
-                  </div>
-                  <input
-                    id="password"
-                    type="password"
-                    className="form-input w-full text-gray-800"
-                    placeholder="Enter your password"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-full px-3">
-                  <div className="flex justify-between">
-                    <label className="flex items-center">
-                      <input type="checkbox" className="form-checkbox" />
-                      <span className="text-gray-600 ml-2">
-                        Keep me signed in
-                      </span>
-                    </label>
+                    <Field
+                      id="email"
+                      type="email"
+                      name="email"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Enter your Name"
+                      required
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="alert alert-danger"
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mt-6">
-                <div className="w-full px-3">
-                  <Link
-                    href="/dashboard"
-                    className="text-sm font-medium text-blue-600 hover:underline"
-                  >
-                    <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">
+                <div className="flex flex-wrap -mx-3 mb-4 form-group">
+                  <div className="w-full px-3">
+                    <div className="flex justify-between">
+                      <label
+                        className="block text-gray-800 text-sm font-medium mb-1"
+                        htmlFor="password"
+                      >
+                        Password
+                      </label>
+                      <Link
+                        href="/reset-password"
+                        className="text-sm font-medium text-blue-600 hover:underline"
+                      >
+                        Having trouble signing in?
+                      </Link>
+                    </div>
+                    <Field
+                      id="password"
+                      name="password"
+                      type="password"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Enter your password"
+                      required
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <div className="flex justify-between">
+                      <label className="flex items-center">
+                        <input type="checkbox" className="form-checkbox" />
+                        <span className="text-gray-600 ml-2">
+                          Keep me signed in
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mt-6">
+                  <div className="w-full px-3">
+                    <button
+                      type="submit"
+                      className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" disabled={loading}
+                    >
+                      {loading && (
+                        <span className="spinner-border sipnner-border-sm"></span>
+                      )}
                       Sign in
                     </button>
-                  </Link>
+                  </div>
                 </div>
-              </div>
-            </form>
+                {message && (
+                  <div className="form-group">
+                    <div className="alert alert-danger" role="alert">
+                      {message}
+                    </div>
+                  </div>
+                )}
+              </Form>
+            </Formik>
             <div className="flex items-center my-6">
               <div
                 className="border-t border-gray-300 grow mr-3"
