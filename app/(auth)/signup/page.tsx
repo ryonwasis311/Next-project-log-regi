@@ -1,16 +1,22 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import ImageUploading from "react-images-uploading";
+import ImageUploading, { ImageListType } from "react-images-uploading";
+
 import Image from "next/image";
+import Link from "next/link";
 
 import IUser from "../types/page";
 import AuthService from "@/services/auth.service";
 
+import { register } from "@/slices/auth";
+import { clearMessage, setMessage } from "@/slices/message";
+
 interface avatarprops {
-  imageList: File[];
-  addUpdateIndex: number;
+  imageList: ImageListType;
+  addUpdateIndex: number[] | undefined;
 }
 
 export const metadata = {
@@ -18,18 +24,26 @@ export const metadata = {
   description: "Page description",
 };
 
-import Link from "next/link";
-import { setMessage } from "@/slices/message";
-
 const SignUp: React.FC = () => {
   const [successful, setSuccessful] = useState<boolean>(false);
 
-  const [images, setImages] = useState<[]>([]);
+  const { message } = useSelector((state: any) => state.message);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
+
+  const [images, setImages] = React.useState([]);
   const maxNumber = 69;
-  const onChange_img = ({ imageList, addUpdateIndex }: avatarprops) => {
+
+  const onChange = (
+    imageList: ImageListType,
+    addUpdateIndex: number[] | undefined
+  ) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
-    setImages(imageList);
+    setImages(imageList as never[]);
   };
 
   const initialValues: IUser = {
@@ -59,7 +73,6 @@ const SignUp: React.FC = () => {
       )
       .required("This field is required!"),
   });
-
   const handleRegister = (formValue: IUser) => {
     const { username, email, password } = formValue;
     console.log(username);
@@ -89,66 +102,67 @@ const SignUp: React.FC = () => {
 
           {/* Form */}
           <div className="max-w-sm mx-auto">
-            <ImageUploading
-              multiple
-              value={images}
-              onChange={onChange_img}
-              maxNumber={maxNumber}
-              dataURLKey="data_url"
-            >
-              {({
-                imageList,
-                onImageUpload,
-                onImageRemoveAll,
-                onImageUpdate,
-                onImageRemove,
-                isDragging,
-                dragProps,
-              }) => (
-                // write your building UI
-                <div className="upload__image-wrapper">
-                  <button
-                    style={isDragging ? { color: "red" } : undefined}
-                    onClick={onImageUpload}
-                    {...dragProps}
-                    className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-full relative flex items-center"
-                  >
-                    Update your avatar
-                  </button>
-                  &nbsp;
-                  {imageList.map((image, index) => (
-                    <div key={index} className="image-item">
-                      <Image
-                        src={image["data_url"]}
-                        alt=""
-                        width="250"
-                        className=" m-auto"
-                      />
-                      <div className="flex justify-between mt-10 mb-10">
-                        <button
-                          onClick={() => onImageUpdate(index)}
-                          className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center"
-                        >
-                          Update
-                        </button>
-                        <button
-                          onClick={() => onImageRemove(index)}
-                          className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </ImageUploading>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
               onSubmit={handleRegister}
             >
               <Form>
+                <ImageUploading
+                  multiple
+                  value={images}
+                  onChange={onChange}
+                  maxNumber={maxNumber}
+                  dataURLKey="data_url"
+                >
+                  {({
+                    imageList,
+                    onImageUpload,
+                    onImageUpdate,
+                    onImageRemove,
+                    isDragging,
+                    dragProps
+                  }) => (
+                    // write your building UI
+                    <div className="upload__image-wrapper">
+                      <button
+                        style={isDragging ? { color: "red" } : undefined}
+                        onClick={onImageUpload}
+                        {...dragProps}
+                        className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-full relative flex items-center"
+                      >
+                        Update your avatar
+                      </button>
+                      &nbsp;
+                      {imageList.map((image, index) => (
+                        <div key={index} className="image-item">
+                          <Image
+                            src={image["data_url"]}
+                            alt=""
+                            height="250"
+                            width="250"
+                            className=" m-auto"
+                          />
+                          <div className="flex justify-between mt-10 mb-10">
+                            <button
+                              onClick={() => onImageUpdate(index)}
+                              className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center"
+                            >
+                              Update
+                            </button>
+                            <button
+                              onClick={() => onImageRemove(index)}
+                              className="btn px-0 text-white bg-green-600 hover:bg-green-700 w-2/5 relative flex items-center"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </ImageUploading>
+
                 <div className="flex flex-wrap -mx-3 mb-4">
                   <div className="w-full px-3 form-group">
                     <label
@@ -306,3 +320,10 @@ const SignUp: React.FC = () => {
   );
 };
 export default SignUp;
+// function newFunction(setImages) {
+//   return ({ imageList, addUpdateIndex }: avatarprops) => {
+//     // data for submit
+//     console.log(imageList, addUpdateIndex);
+//     setImages(imageList);
+//   };
+// }
