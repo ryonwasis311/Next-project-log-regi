@@ -10,8 +10,11 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { sign } from "crypto";
 import * as Yup from "yup";
 import Link from "next/link";
+import IUser from "../types/page";
 
-import AuthService from "@/services/auth.service";
+import { login } from "@/slices/auth";
+
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 type Props = {};
 
@@ -20,6 +23,7 @@ const SignIn: React.FC<Props> = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const dispatch = useAppDispatch();
 
   const initialValues: {
     email: string;
@@ -34,29 +38,36 @@ const SignIn: React.FC<Props> = () => {
     password: Yup.string().required("This field is required!"),
   });
 
-  const handleLogin = (formValue: { email: string; password: string }) => {
-    const { email, password } = formValue;
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
 
+    // event.preventDefault();
+    const { email, password } = event as any;
+    const data: any = {
+      email: email,
+      password: password,
+    };  
     setMessage("");
     setLoading(true);
 
-    AuthService.login(email, password).then(
-      () => {
-        navigate("/dashboard");
-        window.location.reload();
-      },
-      (error: any) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+    dispatch(login(data))
+      .unwrap()
+      .then(
+        () => {
+          navigate("/dashboard");
+          window.location.reload();
+        },
+        (error: any) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
 
-        setLoading(false);
-        setMessage(resMessage);
-      }
-    );
+          setLoading(false);
+          setMessage(resMessage);
+        }
+      );
   };
 
   return (
@@ -73,7 +84,9 @@ const SignIn: React.FC<Props> = () => {
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
-              onSubmit={handleLogin}
+              onSubmit={(e: any) => {
+                handleLogin(e);
+              }}
             >
               <Form>
                 <div className="flex flex-wrap -mx-3 mb-4 form-gruop">
@@ -146,7 +159,8 @@ const SignIn: React.FC<Props> = () => {
                   <div className="w-full px-3">
                     <button
                       type="submit"
-                      className="btn text-white bg-blue-600 hover:bg-blue-700 w-full" disabled={loading}
+                      className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
+                      disabled={loading}
                     >
                       {loading && (
                         <span className="spinner-border sipnner-border-sm"></span>

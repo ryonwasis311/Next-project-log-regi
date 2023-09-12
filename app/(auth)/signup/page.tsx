@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ImageUploading, { ImageListType } from "react-images-uploading";
@@ -9,10 +10,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 import IUser from "../types/page";
-import AuthService from "@/services/auth.service";
+// import AuthService from "@/services/auth.service";
 
-import { register } from "@/slices/auth";
-import { clearMessage, setMessage } from "@/slices/message";
+import { PersonData, register } from "../../../slices/auth";
+import { clearMessage, getMessage, setMessage } from "@/slices/message";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 interface avatarprops {
   imageList: ImageListType;
@@ -25,10 +28,10 @@ export const metadata = {
 };
 
 const SignUp: React.FC = () => {
-  const [successful, setSuccessful] = useState<boolean>(false);
-
-  const { message } = useSelector((state: any) => state.message);
-  const dispatch = useDispatch();
+  let navigate: NavigateFunction = useNavigate();
+  const [ loading, setLoading ]= useState<boolean>(false);
+  const { message } = useAppSelector((state: any) => state.message);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(clearMessage());
@@ -50,6 +53,7 @@ const SignUp: React.FC = () => {
     username: "",
     email: "",
     password: "",
+    img: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -73,13 +77,25 @@ const SignUp: React.FC = () => {
       )
       .required("This field is required!"),
   });
-  const handleRegister = (formValue: IUser) => {
-    const { username, email, password } = formValue;
-    console.log(username);
-    AuthService.register(username, email, password).then(
-      (response) => {
-        setMessage(response.data.message);
-        setSuccessful(true);
+
+  const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    // event.preventDefault();
+   
+    
+    const { username, email, password ,img} =event as any;
+    const data:any ={
+      username: username,
+      email:email,
+      password: password,
+      img:img
+    }
+
+    dispatch(register(data))
+      .unwrap()
+      .then((response) => {
+        navigate("/signin");
+        window.location.reload();
+        console.log(response.data);
       },
       (error: any) => {
         const resMessage =
@@ -89,10 +105,10 @@ const SignUp: React.FC = () => {
           error.message ||
           error.toString();
 
+        setLoading(false);
         setMessage(resMessage);
-        setSuccessful(false);
       }
-    );
+      );
   };
   return (
     <section className="bg-gradient-to-b from-gray-100 to-white">
@@ -105,7 +121,9 @@ const SignUp: React.FC = () => {
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
-              onSubmit={handleRegister}
+              onSubmit={(e: any) =>{
+                handleRegister(e)
+              }}
             >
               <Form>
                 <ImageUploading
@@ -121,7 +139,7 @@ const SignUp: React.FC = () => {
                     onImageUpdate,
                     onImageRemove,
                     isDragging,
-                    dragProps
+                    dragProps,
                   }) => (
                     // write your building UI
                     <div className="upload__image-wrapper">

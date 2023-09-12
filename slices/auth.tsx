@@ -5,17 +5,23 @@ import AuthService from "@/services/auth.service";
 
 const user = JSON.parse(localStorage.getItem("user") || "");
 
-interface PersonData {
+export interface PersonData {
   username: string;
   email: string;
   password: string;
+  img: any;
 }
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ username, email, password }: PersonData, thunkAPI) => {
+  async ({ username, email, password, img }: PersonData, thunkAPI) => {
     try {
-      const response = await AuthService.register(username, email, password);
+      const response = await AuthService.register(
+        username,
+        email,
+        password,
+        img
+      );
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error: any) {
@@ -35,9 +41,10 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: PersonData, thunkAPI) => {
     try {
-      const response = await AuthService.login(email, password);
+      const response = await AuthService.login(email, password);    
       return { user: response.data };
-    } catch (error:any) {
+    } catch (error: any) {
+      console.log("async error");
       const message =
         (error.response &&
           error.response.data &&

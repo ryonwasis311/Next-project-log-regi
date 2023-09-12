@@ -3,12 +3,10 @@ import axios from "axios";
 const API_URL = "http://192.168.3.42:3001/";
 const API_URL1 = "http://192.168.3.42:3001";
 
-
-
 interface PersonData {
-  username: string,
-  email: string,
-  password: string,
+  username: string;
+  email: string;
+  password: string;
 }
 
 const saveToken = () => {
@@ -18,27 +16,38 @@ const saveToken = () => {
   API_URL1.defaults.headers.common["x-access-token"] = token;
 };
 
-const register = (username: string, email: string, password: string) => {
-  return axios.post(API_URL+ "auth/signup", {
-        username,
-        email,
-        password,
-  })
-  
-}
+const register = (
+  username: string,
+  email: string,
+  password: string,
+  img: any
+) => {
+  return axios.post(API_URL + "auth/signup", {
+    username,
+    email,
+    password,
+    img,
+  });
+};
 
-const login = ( email:string, password:string ) => {
+const login = (email: string, password: string) => {
+  console.log("test auth service: ", email, password);
   return axios
     .post(API_URL + "auth/signin", {
       email,
       password,
     })
-    .then((response) => {
-      if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+    .then(
+      (response) => {
+        if (response.data) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+        }
+        return response.data;
+      },
+      (error) => {
+        console.log("res: ", error);
       }
-      return response.data;
-    })
+    );
 };
 
 const logout = () => {
@@ -50,9 +59,9 @@ const logout = () => {
 
 const getCurrentUser = () => {
   const userStr = localStorage.getItem("user");
-  if(userStr)  return JSON.parse(userStr);
+  if (userStr) return JSON.parse(userStr);
 
-  return null
+  return null;
 };
 
 const AuthService = {

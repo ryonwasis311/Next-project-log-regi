@@ -21,11 +21,10 @@
     handleCommentLike,
   } from "../../features/PostActionMethods";
   import { AnyAction } from "redux";
-  import { useSelector } from "react-redux";
 
   const AvatarMangement = ({}) => { 
     const dispatch = useAppDispatch();
-    const allPosts: any = useSelector((state: any) => state.postData);
+    const allPosts: any = useAppSelector((state: any) => state.postData);
     const [comment, setComment] = useState(() => "");
     console.log(allPosts);
     const handleCommentPost = (event: any, id: string) => {
