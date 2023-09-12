@@ -33,7 +33,7 @@ const initialState: PersonData[] = [
   },
   {
     profilePic:
-      "ttps://img.mensxp.com/media/content/2020/Sep/Image-1-Facebook-CarryMinati_5f621859f1b73.jpeg?w=500&h=625",
+      "https://img.mensxp.com/media/content/2020/Sep/Image-1-Facebook-CarryMinati_5f621859f1b73.jpeg?w=500&h=625",
     userID: "Beerbiceps",
     postLink:
       "https://m.media-amazon.com/images/M/MV5BNWJlMzY5ZjctZGYzZi00NDFiLWIyOWEtYTVjNzg4OTViMzY2XkEyXkFqcGdeQXVyNDAzNDk0MTQ@._V1_FMjpg_UX1000_.jpg",
@@ -119,5 +119,5 @@ export const {
     sharePost,
     handleLogin
 } = postDataSlice.actions;
-
+export const getPostData = (state: any) => state;
 export default postDataSlice.reducer;

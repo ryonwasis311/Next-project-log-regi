@@ -16,15 +16,13 @@
   import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/SentimentSatisfiedOutlined";
 
   import {
-    focusOnComment,
     handleShowMore,
-    handleCommentLike,
   } from "../../features/PostActionMethods";
   import { AnyAction } from "redux";
 
   const AvatarMangement = ({}) => { 
     const dispatch = useAppDispatch();
-    const allPosts: any = useAppSelector((state: any) => state.postData);
+    const allPosts = useAppSelector((state: any) => state.postData);
     const [comment, setComment] = useState(() => "");
     console.log(allPosts);
     const handleCommentPost = (event: any, id: string) => {
@@ -35,7 +33,7 @@
 
     return (
       <div className="container">
-        {allPosts.map((postData: any) => {
+        {allPosts.map((postData: any) => (
           <section className="relative">
             {/* Avatar-Detail */}
             <div className="title flex justify-between mt-16 mb-4">
@@ -44,7 +42,7 @@
                   src={postData.profilePic}
                   width={55}
                   height={55}
-                  alt="Avatar"
+                  alt="Avatarrrr"
                 />
                 <h4 className="h4 mt-2 ml-3">I'm Steel Man</h4>
               </div>
@@ -110,7 +108,7 @@
               </div>
             </div>
             {/* Avatar */}
-            <Image className="w-full" src={postData.postLink} alt="Avatar" />
+            <Image className="w-full" src={postData.postLink} alt="Avatar" width={100} height={100} />
             {/* Tools */}
             <div className="flex justify-between">
               <div className="icons ml-4 mt-4">
@@ -318,7 +316,7 @@
               </div>
             </form>
           </section>
-        })}
+        ))}
       </div>
     );
   };

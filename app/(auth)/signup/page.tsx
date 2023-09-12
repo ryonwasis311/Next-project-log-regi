@@ -79,9 +79,7 @@ const SignUp: React.FC = () => {
   });
 
   const handleRegister = (event: React.FormEvent<HTMLFormElement>) => {
-    // event.preventDefault();
-   
-    
+     
     const { username, email, password ,img} =event as any;
     const data:any ={
       username: username,

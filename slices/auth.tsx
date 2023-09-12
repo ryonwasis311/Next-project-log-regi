@@ -1,9 +1,10 @@
+"use client"
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 
 import AuthService from "@/services/auth.service";
 
-const user = JSON.parse(localStorage.getItem("user") || "");
+const user = JSON.parse(localStorage ? localStorage.getItem("user") || "" : "");
 
 export interface PersonData {
   username: string;
@@ -99,5 +100,5 @@ const authSlice = createSlice({
 });
 
 const { reducer } = authSlice;
-
+export const getAuth = (state: any) => state;
 export default reducer;
